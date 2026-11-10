@@ -1,0 +1,21 @@
+{
+  // LexBeacon AI on Cloudflare: ONE Worker serves the website (static files from ./dist) and the AI routes (/api/*).
+  // Secrets (never put keys in this file): npx wrangler secret put GEMINI_API_KEY | GROQ_API_KEY | OPENROUTER_API_KEY | APP_ACCESS_CODE
+  // Cloudflare project name must equal "name" below. Build is run by wrangler before upload.
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "lexbeacon-ai",
+  "main": "worker/index.ts",
+  "compatibility_date": "2026-04-18",
+  "build": { "command": "npm run build" },
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+    "not_found_handling": "single-page-application",
+    "run_worker_first": ["/api/*"]
+  },
+  "vars": {
+    "GEMINI_MODEL": "gemini-2.5-flash",
+    "GROQ_MODEL": "llama-3.3-70b-versatile",
+    "OPENROUTER_MODEL": "meta-llama/llama-3.3-70b-instruct:free"
+  }
+}

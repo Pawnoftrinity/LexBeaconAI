@@ -1,0 +1,6 @@
+# Copy to .dev.vars (never commit) for `npm run dev:worker`
+GEMINI_API_KEY=
+GROQ_API_KEY=
+OPENROUTER_API_KEY=
+# Optional: if set, the app asks for this code in Settings and sends it with every AI call
+APP_ACCESS_CODE=
