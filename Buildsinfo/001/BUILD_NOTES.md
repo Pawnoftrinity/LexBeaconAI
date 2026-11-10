@@ -1,1 +1,5 @@
-
+# Build 001 — v1_D202611_B001 — 2026-11-08
+Built: welcome + adaptive English check, Home (streak, rest day, goal), Lex chat (teacher/tutor/buddy), Translate with "why", Dictionary (IPA, TTS, pronunciation scoring, My words, spaced review), Civics 2025 (128 Q, starred/all/due/weak, dated answers + grounded "Check latest", spoken answers), Interview practice, N-400 helper, Progress, Settings (help level, fade time, colors, voice/speed, goal, test version by N-400 date, review mode, access code), living flag background (12 objects), feather-collapse top bar, dock with long-press, tap-any-word card.
+Worker: Gemini(+Search) -> Groq -> OpenRouter, access code, /api/health.
+Known limits: no 2008 civics pack yet; Q1-40 wording unverified; offline PWA not done (data is bundled, but no service worker); no login/sync (localStorage); Ukrainian text unreviewed; speech scoring needs Chrome/Edge; AI untested live (no keys in build environment); N-400 helper is general guidance only.
+Verified here: typecheck clean, production build OK, phone-size screenshots of welcome/home/civics/settings, top-bar no longer flickers.
