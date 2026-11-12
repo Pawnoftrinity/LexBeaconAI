@@ -8,9 +8,9 @@ export interface Settings{learner:'uk';help:Help;dark:boolean;primary:string;acc
   voiceName:string;rate:number;goalMin:number;level:number|null;welcomed:boolean;review:boolean;test:'2025'|'2008';n400Date:string;bgSeed:number;code:string;}
 export interface SrsCard{box:number;due:string;seen:number;miss:number}
 export interface Progress{minutesByDay:Record<string,number>;restDays:string[];saved:string[];srs:Record<string,SrsCard>;
-  quiz:{right:number;total:number};lastOpen:string}
+  quiz:{right:number;total:number};lastOpen:string;videos:{watched:string[];quiz:{id:string;right:number;total:number;at:string}[]};notes:{at:string;screen:string;text:string}[]}
 const S0:Settings={learner:'uk',help:'uk',dark:false,primary:DEFAULT_PRIMARY,accent:DEFAULT_ACCENT,calm:false,fadeSec:30,voiceName:'',rate:0.95,goalMin:10,level:null,welcomed:false,review:false,test:'2025',n400Date:'',bgSeed:7,code:''};
-const P0:Progress={minutesByDay:{},restDays:[],saved:[],srs:{},quiz:{right:0,total:0},lastOpen:''};
+const P0:Progress={minutesByDay:{},restDays:[],saved:[],srs:{},quiz:{right:0,total:0},lastOpen:'',videos:{watched:[],quiz:[]},notes:[]};
 function load<T>(k:string,d:T):T{try{const v=localStorage.getItem(k);return v?{...d,...JSON.parse(v)}:d;}catch{return d;}}
 let settings=load('lex.settings.v1',S0),progress=load('lex.progress.v1',P0);
 const subs=new Set<()=>void>();
