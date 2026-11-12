@@ -2,7 +2,7 @@
 @keyframes lbseam{0%{--seam:118%}100%{--seam:-28%}}
 @keyframes lbfloat{0%{transform:translate3d(0,0,0) rotate(var(--r0))}100%{transform:translate3d(0,-20px,0) rotate(var(--r1))}}
 @keyframes lbblob{0%{transform:translate3d(-8%,-5%,0) scale(1)}100%{transform:translate3d(9%,7%,0) scale(1.18)}}
-@keyframes lbin{0%{opacity:0;transform:translate3d(0,18px,0) scale(.985);filter:blur(8px)}100%{opacity:1;transform:none;filter:blur(0)}}
+@keyframes lbin{0%{opacity:0;transform:translate3d(0,18px,0) scale(.985);filter:blur(8px)}100%{opacity:1;transform:none;filter:none}}
 @keyframes lbpulse{0%{transform:scale(.55);opacity:.6}100%{transform:scale(1.7);opacity:0}}
 .lb,.lb *{box-sizing:border-box}
 .lb button,.lb input,.lb textarea{font-family:inherit}
@@ -76,8 +76,8 @@
 .lb.review [lang=uk]{outline:1.5px dashed var(--primaryText);outline-offset:3px;border-radius:6px}
 .lb.review.isuk :is(h1,h2,h3,p,span,button,li,label,b):not(:has(*)):not([lang=en]){outline:1.5px dashed var(--primaryText);outline-offset:2px;border-radius:4px}
 @media (max-width:560px){
-.lb .dk,.lb .dk:hover,.lb .dk.on{flex-direction:column;justify-content:center;gap:3px;height:56px;min-width:52px;padding:0 5px;border-radius:20px}
-.lb .dk .dklab,.lb .dk:hover .dklab,.lb .dk.on .dklab{max-width:none;opacity:1;font-size:10px;font-weight:600;letter-spacing:-.02em}
+.lb .dk,.lb .dk:hover,.lb .dk.on{flex-direction:column;justify-content:center;gap:3px;height:56px;min-width:44px;padding:0 3px;border-radius:18px}
+.lb .dk .dklab,.lb .dk:hover .dklab,.lb .dk.on .dklab{max-width:none;opacity:1;font-size:9.5px;font-weight:600;letter-spacing:-.03em}
 .lb .tbtn span,.lb .tagl{display:none}
 .lb .tbtn{padding:0;width:42px;min-height:42px;height:42px}
 .lb .ibtn{width:42px;height:42px}
@@ -91,7 +91,7 @@
 .lb .mfb{animation:lbfade2 1.6s ease both}
 .lb.calm .mfa,.lb.calm .mfb{animation:none!important}
 @keyframes lbfo{0%{transform:none;opacity:1;filter:blur(0);visibility:visible}25%{transform:translate(46px,-8px) rotate(5deg) scale(.92);opacity:1}55%{transform:translate(8px,-26px) rotate(-14deg) scale(.5);opacity:.85;filter:blur(1px)}100%{transform:translate(-26px,-6px) rotate(-28deg) scale(.06);opacity:0;filter:blur(8px);visibility:hidden}}
-@keyframes lbfi{0%{transform:translate(-26px,-6px) rotate(-28deg) scale(.06);opacity:0;filter:blur(8px)}100%{transform:none;opacity:1;filter:blur(0)}}
+@keyframes lbfi{0%{transform:translate(-26px,-6px) rotate(-28deg) scale(.06);opacity:0;filter:blur(8px)}100%{transform:none;opacity:1;filter:none}}
 .lb .tbgone{animation:lbfo .95s cubic-bezier(.4,0,.2,1) both;pointer-events:none}
 .lb .tbin{animation:lbfi .8s cubic-bezier(.2,.8,.2,1) both}
 .lb .tbspace{gap:10px 16px}
@@ -111,3 +111,13 @@
 @media (prefers-reduced-motion:reduce){.lb .usl,.lb .blob,.lb .glyph,.lb .orbring,.lb .screen,.lb .rv{animation:none!important}}
 html,body{margin:0}body{-webkit-text-size-adjust:100%}
 .lb .tbpill{background-color:color-mix(in srgb,var(--bg) 86%,transparent)}
+
+/* build 002: a filter left on an ancestor (even blur(0)) kills backdrop-filter on children, and a held transform overrides inline positioning. */
+.lb .pop{animation:lbfade .3s ease both}
+.lb .uachip.on{background-image:linear-gradient(135deg,var(--p1),var(--p2));color:var(--onCta);border-color:transparent}
+.lb .tbpill{-webkit-backdrop-filter:blur(28px) saturate(180%);backdrop-filter:blur(28px) saturate(180%)}
+.lb .vid{display:grid;gap:8px;text-align:left;padding:0;border:1px solid var(--edge);border-radius:18px;background-color:var(--glass2);overflow:hidden;transition:transform .3s cubic-bezier(.2,.8,.2,1),border-color .3s}
+.lb .vid:hover{transform:translateY(-3px);border-color:var(--primary)}
+.lb .vid img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;background:var(--soft)}
+.lb .player{position:relative;width:100%;aspect-ratio:16/9;border-radius:18px;overflow:hidden;background:#000}
+.lb .player iframe{position:absolute;inset:0;width:100%;height:100%;border:0}

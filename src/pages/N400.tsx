@@ -10,6 +10,7 @@ export function N400(){
   return <div className="screen" style={{display:'grid',gap:16,maxWidth:860,margin:'0 auto'}}>
     <Card><Eyebrow>N-400</Eyebrow><h2 className="hf" style={{margin:'10px 0'}}>{t('dN400')}</h2><Bi k="n400Intro"/>
       <div style={{display:'flex',gap:8,flexWrap:'wrap',marginTop:12}}>{STARTERS.map((s,i)=><button key={i} className="chip" onClick={()=>{setQ(s[0]);go(s[0]);}}>{t('tutEyebrow')&&s[1]}</button>)}</div></Card>
+    <Card><Eyebrow>{t('offHelp')}</Eyebrow><div style={{display:'flex',gap:8,flexWrap:'wrap',marginTop:10}}>{[['USCIS N-400','https://www.uscis.gov/n-400'],['USCIS Citizenship','https://www.uscis.gov/citizenship'],['DOJ EOIR','https://www.justice.gov/eoir']].map(([n,u])=><a key={n} className="chip" href={u} target="_blank" rel="noreferrer">{n}</a>)}</div><p className="muted" style={{marginTop:10,fontSize:13}}>{t('vidLegal')}</p></Card>
     <Card style={{display:'grid',gap:12}}>
       <form onSubmit={e=>{e.preventDefault();go();}} style={{display:'flex',gap:8}}><input className="field" value={q} onChange={e=>setQ(e.target.value)} placeholder={t('tutPlaceholder')} maxLength={1500}/><button className="btn btnp" disabled={busy||!q.trim()}>{t('send')}</button></form>
       {busy&&<p className="muted">{t('thinking')}</p>}

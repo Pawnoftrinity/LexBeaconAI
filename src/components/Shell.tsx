@@ -6,7 +6,7 @@ import {makeGlyphs} from '@/lib/glyphs';
 import {useT,useMenu,useMode} from '@/lib/i18n';
 import {Icon,IC,Menu} from './ui';
 
-export type Screen='welcome'|'check'|'home'|'lex'|'translate'|'dict'|'civics'|'interview'|'n400'|'progress'|'settings';
+export type Screen='welcome'|'check'|'home'|'lex'|'translate'|'dict'|'civics'|'interview'|'n400'|'videos'|'progress'|'settings';
 
 export function Background(){
   const s=useSettings();const [seed,setSeed]=useState(s.bgSeed);
@@ -58,7 +58,7 @@ export function TopBar({go,screen}:{go:(s:Screen)=>void;screen:Screen}){
     </div></header>);
 }
 
-const DOCK:[Screen,string,string][]=[['home','dHome',IC.home],['lex','dLex',IC.lex],['translate','dTr',IC.tr],['dict','dDict',IC.dict],['civics','dCiv',IC.civ],['interview','dIv',IC.iv]];
+const DOCK:[Screen,string,string][]=[['home','dHome',IC.home],['lex','dLex',IC.lex],['translate','dTr',IC.tr],['dict','dDict',IC.dict],['civics','dCiv',IC.civ],['videos','dVid',IC.play],['interview','dIv',IC.iv]];
 export function Dock({screen,go}:{screen:Screen;go:(s:Screen)=>void}){
   const m=useMenu();const t=useT();const [hide,setHide]=useState(false);const [qa,setQa]=useState(false);const last=useRef(0);const lp=useRef<number>();
   useEffect(()=>{const f=()=>{const y=window.scrollY;setHide(y>last.current&&y>120);last.current=y;};window.addEventListener('scroll',f,{passive:true});return()=>window.removeEventListener('scroll',f);},[]);
@@ -69,10 +69,11 @@ export function Dock({screen,go}:{screen:Screen;go:(s:Screen)=>void}){
         onClick={()=>go(k)} onPointerDown={()=>{lp.current=window.setTimeout(()=>setQa(true),550);}} onPointerUp={()=>clearTimeout(lp.current)} onPointerLeave={()=>clearTimeout(lp.current)}>
         <Icon d={ic}/><span className="dklab">{m(lab)}</span></button>)}
     </div></nav>
-    {qa&&<div className="glass rv" role="dialog" aria-label={t('qaTitle')} style={{position:'fixed',zIndex:60,left:'50%',bottom:96,transform:'translateX(-50%)',padding:16,width:'min(92vw,320px)'}}>
+    {qa&&<div className="glass pop" role="dialog" aria-label={t('qaTitle')} style={{position:'fixed',zIndex:60,left:0,right:0,marginInline:'auto',bottom:96,padding:16,width:'min(92vw,320px)'}}>
       <b className="hf">{t('qaTitle')}</b>
       <div style={{display:'grid',gap:8,marginTop:10}}>
         <button className="row" onClick={()=>{setQa(false);go('civics');}}><Icon d={IC.civ}/>{m('dCiv')}</button>
+        <button className="row" onClick={()=>{setQa(false);go('videos');}}><Icon d={IC.play}/>{m('dVid')}</button>
         <button className="row" onClick={()=>{setQa(false);go('n400');}}><Icon d={IC.doc}/>{m('dN400')}</button>
         <button className="row" onClick={()=>{setQa(false);go('progress');}}><Icon d={IC.prog}/>{m('dProg')}</button>
         <button className="btn" onClick={()=>setQa(false)}>{t('close')}</button></div></div>}</>;

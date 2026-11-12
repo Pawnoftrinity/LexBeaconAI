@@ -12,6 +12,7 @@ export function Home({go}:{go:(s:any)=>void}){
       <h1 className="hf gt" style={{fontSize:'clamp(28px,5vw,46px)',lineHeight:1.1,margin:'12px 0 16px'}}>{t('heroA')} {t('heroB')}</h1>
       <div style={{display:'flex',gap:10,flexWrap:'wrap'}}><button className="btn btnp" onClick={()=>go('lex')}><Icon d={IC.lex}/>{t('ctaLex')}</button>
         <button className="btn" onClick={()=>go('civics')}><Icon d={IC.civ}/>{m('dCiv')}</button>
+        <button className="btn" onClick={()=>go('videos')}><Icon d={IC.play}/>{m('dVid')}</button>
         <button className="btn" onClick={()=>go('n400')}><Icon d={IC.doc}/>{m('dN400')}</button></div></Card>
     <div style={{display:'grid',gap:18,gridTemplateColumns:'repeat(auto-fit,minmax(280px,1fr))'}}>
       <Card><Eyebrow>{t('stkT')}</Eyebrow><div className="hf" style={{fontSize:44,fontWeight:800,margin:'8px 0'}}>{n} <span className="muted" style={{fontSize:16}}>{t('stkDays')}</span></div>

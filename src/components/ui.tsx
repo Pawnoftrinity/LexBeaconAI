@@ -13,19 +13,20 @@ export const IC={
  dict:'M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3zM5 17a3 3 0 0 1 3-3h11',civ:'M3 10l9-6 9 6M5 10v8M9.5 10v8M14.5 10v8M19 10v8M3 20h18',iv:'M12 14a3 3 0 0 0 3-3V6a3 3 0 0 0-6 0v5a3 3 0 0 0 3 3zM6 11a6 6 0 0 0 12 0M12 17v4M9 21h6',
  set:'M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM19 12l2-1-2-4-2.2.7a7 7 0 0 0-1.6-1L14.8 4h-4.6l-.4 2.7a7 7 0 0 0-1.6 1L6 7 4 11l2 1a7 7 0 0 0 0 2l-2 1 2 4 2.2-.7a7 7 0 0 0 1.6 1l.4 2.7h4.6l.4-2.7a7 7 0 0 0 1.6-1L18 19l2-4-2-1a7 7 0 0 0 0-2z',
  spk:'M4 9v6h4l5 4V5L8 9zM16.5 8.5a5 5 0 0 1 0 7',mic:'M12 14a3 3 0 0 0 3-3V6a3 3 0 0 0-6 0v5a3 3 0 0 0 3 3zM6 11a6 6 0 0 0 12 0M12 17v4',moon:'M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z',sun:'M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8zM12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4',
- prog:'M4 20V10M10 20V4M16 20v-8M22 20H2',doc:'M7 3h8l4 4v14H7zM15 3v4h4M10 12h6M10 16h6',x:'M6 6l12 12M18 6L6 18',star:'M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z',arrow:'M5 12h14M13 6l6 6-6 6',check:'M5 12l5 5 9-10'
+ prog:'M4 20V10M10 20V4M16 20v-8M22 20H2',play:'M5 4l14 8-14 8zM3 21h18',doc:'M7 3h8l4 4v14H7zM15 3v4h4M10 12h6M10 16h6',x:'M6 6l12 12M18 6L6 18',star:'M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z',arrow:'M5 12h14M13 6l6 6-6 6',check:'M5 12l5 5 9-10'
 };
-const Chip=({c,onClick,on}:{c:string;onClick:()=>void;on:boolean})=><button className="uachip" onClick={onClick} aria-pressed={on} aria-label={c}>{c}</button>;
+/** chip shows the language you will see NEXT; once the other language is open it flips back to the main language */
+const Chip=({c,back,onClick,on}:{c:string;back:string;onClick:()=>void;on:boolean})=><button className={'uachip'+(on?' on':'')} onClick={onClick} aria-pressed={on} aria-label={on?back:c}>{on?back:c}</button>;
 /** Bilingual explanation: primary language, chip reveals the other language beneath (no swap) */
 export function Bi({k,tag:Tag='p',style,className}:{k:string;tag?:'p'|'span'|'h1'|'h2'|'h3';style?:React.CSSProperties;className?:string}){
   const b=useBi();const [o,setO]=useState(false);const x=b(k);
-  return <span className="hbk" style={{display:'block'}}><span style={{display:'flex',alignItems:'flex-start',gap:10}}><Tag style={style} className={className} lang={x.c==='UA'?'en':'uk'}>{x.p}</Tag><Chip c={x.c} on={o} onClick={()=>setO(!o)}/></span>
+  return <span className="hbk" style={{display:'block'}}><span style={{display:'flex',alignItems:'flex-start',gap:10}}><Tag style={style} className={className} lang={x.c==='UA'?'en':'uk'}>{x.p}</Tag><Chip c={x.c} back={x.c==='UA'?'EN':'UA'} on={o} onClick={()=>setO(!o)}/></span>
    {o&&<Tag className="muted rv" style={{marginTop:6,...style,fontSize:'.92em',fontWeight:400}} lang={x.c==='UA'?'uk':'en'}>{x.o}</Tag>}</span>;
 }
 /** English study content stays English; chip shows learner-language translation */
 export function En({text,uk,tag:Tag='p',style}:{text:string;uk?:string;tag?:'p'|'span'|'h3';style?:React.CSSProperties}){
   const [o,setO]=useState(false);
-  return <span style={{display:'block'}}><span style={{display:'flex',alignItems:'flex-start',gap:10}}><Tag style={style} lang="en"><Words text={text}/></Tag>{uk&&<Chip c="UA" on={o} onClick={()=>setO(!o)}/>}</span>
+  return <span style={{display:'block'}}><span style={{display:'flex',alignItems:'flex-start',gap:10}}><Tag style={style} lang="en"><Words text={text}/></Tag>{uk&&<Chip c="UA" back="EN" on={o} onClick={()=>setO(!o)}/>}</span>
    {o&&uk&&<Tag className="muted rv" lang="uk" style={{marginTop:6,...style,fontSize:'.92em',fontWeight:400}}>{uk}</Tag>}</span>;
 }
 export const Menu=({k}:{k:string})=>{const m=useMenu();return <span key={m(k)} className="mfa">{m(k)}</span>;};
@@ -47,7 +48,7 @@ export function WordCard(){
   const e=lexicon[w];const ipa=e?e[0]:ai?.ipa,uk=e?e[1]:ai?.meaning_l,def=e?e[2]:ai?.meaning_en;
   const key='w:'+w,saved=prog.saved.includes(key);
   const toggle=()=>setProgress(p=>({...p,saved:saved?p.saved.filter(x=>x!==key):[...p.saved,key]}));
-  return <div className="glass rv" role="dialog" aria-label={w} style={{position:'fixed',zIndex:50,left:'50%',bottom:110,transform:`translate(calc(-50% + ${pos.x}px),${pos.y}px)`,width:'min(92vw,380px)',padding:18,borderRadius:24,touchAction:'none'}}
+  return <div className="glass pop" role="dialog" aria-label={w} style={{position:'fixed',zIndex:50,left:0,right:0,marginInline:'auto',bottom:110,translate:`${pos.x}px ${pos.y}px`,width:'min(92vw,380px)',padding:18,borderRadius:24,touchAction:'none'}}
     onPointerDown={ev=>{if((ev.target as HTMLElement).closest('button'))return;drag.current={dx:ev.clientX-pos.x,dy:ev.clientY-pos.y};(ev.currentTarget as HTMLElement).setPointerCapture(ev.pointerId);}}
     onPointerMove={ev=>{if(drag.current)setPos({x:ev.clientX-drag.current.dx,y:ev.clientY-drag.current.dy});}} onPointerUp={()=>{drag.current=null;}}>
     <div style={{display:'flex',alignItems:'center',gap:10}}>

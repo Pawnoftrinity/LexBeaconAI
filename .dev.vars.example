@@ -4,3 +4,6 @@ GROQ_API_KEY=
 OPENROUTER_API_KEY=
 # Optional: if set, the app asks for this code in Settings and sends it with every AI call
 APP_ACCESS_CODE=
+
+# YouTube Data API v3 key (optional, enables in-app video lists). Enable 'YouTube Data API v3' in Google Cloud for this key.
+YOUTUBE_API_KEY=
